@@ -41,8 +41,8 @@
 假设这个对象有这样的方法：
 
     @interface AppLinker : NSObject
-            - (instancetype)initWithApplication:(UIApplication *)application;
-            - (void)doSomething:(NSURL *)url;
+    - (instancetype)initWithApplication:(UIApplication *)application;
+    - (void)doSomething:(NSURL *)url;
     @end
 
 这是一个非常牵强的例子，但是请容忍我一下。在这个例子中，你会注意到我们使用了构造方法进行注入，当我们创建 `AppLinker` 的对象时将 `UIApplication` 对象注入到其中。大部分情况下，使用模拟对象要求使用某种形式的依赖注入。如果这个概念对你很陌生，请一定看看本期的 [Jon 的文章](http://objccn.io/issue-15-3/) 中的描述。
@@ -105,15 +105,15 @@
 对于像这种简单的用例，你也许不需要这么重量级的模拟对象测试库。通常，你只需要创建你自己的模拟对象来测试你关心的行为：
 
     @interface FakeApplication : NSObject
-        @property (readwrite, nonatomic, strong) NSURL *lastOpenedURL;
+    @property (readwrite, nonatomic, strong) NSURL *lastOpenedURL;
         
-        - (void)openURL:(NSURL *)url;
+    - (void)openURL:(NSURL *)url;
     @end
     
     @implementation FakeApplication
-        - (void)openURL:(NSURL *)url {
-            self.lastOpenedURL = url;
-        }
+    - (void)openURL:(NSURL *)url {
+        self.lastOpenedURL = url;
+    }
     @end
 
 以下是测试：
